@@ -3,9 +3,11 @@ public class Node {
     private int data;
     private Node leftChild;
     private Node rightChild;
+    private Node parent;
 
-    public Node(int data) {
+    public Node(int data,Node parent) {
         this.data = data;
+        this.parent = parent;
     }
 
     public void insert(int value) {
@@ -18,19 +20,33 @@ public class Node {
         if (value < data) {
             // check the left child of this node
             if (leftChild == null) {
-                leftChild = new Node(value);
+                leftChild = new Node(value,this);
             } else {
                 leftChild.insert(value);
             }
-        } else if (value > data) {
+        } else {
             // check the right child of this node
             if (rightChild == null) {
-                rightChild = new Node(value);
+                rightChild = new Node(value,this);
             } else {
                 rightChild.insert(value);
             }
         }
 
+    }
+
+    public void preOrderTraversal() {
+
+        System.out.print(data + " ");
+
+        if (leftChild != null)
+            leftChild.preOrderTraversal();
+
+        if (rightChild == null)
+            return;
+        else {
+            rightChild.preOrderTraversal();
+        }
     }
 
     public void inOrderTraversal() {
@@ -45,6 +61,37 @@ public class Node {
         else {
             rightChild.inOrderTraversal();
         }
+    }
+
+    public void postOrderTraversal() {
+
+        if (leftChild != null)
+            leftChild.postOrderTraversal();
+
+        if (rightChild != null)
+            rightChild.postOrderTraversal();
+
+        System.out.print(data + " ");
+    }
+
+    public boolean search(int value) {
+        if (value == data)
+            return true;
+        else if (value < data) {
+            if (leftChild != null)
+                return leftChild.search(value);
+        } else {
+            if (rightChild != null)
+                return rightChild.search(value);
+        }
+        return false;
+    }
+
+    public int max(){
+        if(rightChild == null)
+            return data;
+        else
+            return rightChild.max();
     }
 
     public int getData() {
