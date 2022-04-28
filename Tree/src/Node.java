@@ -10,6 +10,7 @@ public class Node {
         this.parent = parent;
     }
 
+
     public void insert(int value) {
         // root node exists
 
@@ -116,5 +117,13 @@ public class Node {
 
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 }
