@@ -9,12 +9,12 @@ public class Driver {
         heap.insert(18);
         heap.insert(8);
         heap.traverseHeap();
-        System.out.println(heap.peek());
+//        System.out.println(heap.peek());
 
-        heap.insert(55);
+        heap.delete(0);
 
         heap.traverseHeap();
 
-        System.out.println(heap.peek());
+//        System.out.println(heap.peek());
     }
 }
