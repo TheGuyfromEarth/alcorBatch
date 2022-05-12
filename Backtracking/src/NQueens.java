@@ -34,22 +34,33 @@ public class NQueens {
         return true;
     }
 
-    public boolean solveNQueens(int[][] board, int row) {
+    public void solveNQueens(int[][] board, int row) {
         // Base Condition
-        if (row == board.length)
-            return true;
+        if (row == board.length) {
+            printBoard(board);
+            System.out.println();
+            return;
+        }
 
         for (int col = 0; col < board.length; col++) {
             if (isValid(board, row, col)) {
                 // So, since isValid returned true, hence queen can be placed here
                 board[row][col] = 1;
                 // Making a recursive call
-                if (solveNQueens(board, row + 1))
-                    return true;
+                solveNQueens(board, row + 1);
                 // We need to do back track if recursive call doesn't return true
                 board[row][col] = 0; // set value back to zero
             }
         }
-        return false;
     }
+
+    private void printBoard(int[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }
