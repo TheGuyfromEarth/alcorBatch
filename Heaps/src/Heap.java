@@ -95,16 +95,17 @@ public class Heap {
                 if (rightChildIndex > lastHeapIndex)
                     childIndexToSwap = leftChildIndex;
                 else {
-                    // both left and right child exists
-                    if (heap[index] < heap[leftChildIndex] || heap[index] < heap[rightChildIndex]) {
-                        childIndexToSwap = (heap[leftChildIndex] > heap[rightChildIndex]) ? leftChildIndex : rightChildIndex;
-                    } else
-                        break;
+                    childIndexToSwap = (heap[leftChildIndex] > heap[rightChildIndex]) ? leftChildIndex : rightChildIndex;
                 }
-                // swap logic
-                int temp = heap[childIndexToSwap];
-                heap[childIndexToSwap] = heap[index];
-                heap[index] = temp;
+
+                if(heap[index] < heap[childIndexToSwap]) {
+                    // swap logic
+                    int temp = heap[childIndexToSwap];
+                    heap[childIndexToSwap] = heap[index];
+                    heap[index] = temp;
+                }
+                else
+                    break;
 
                 index = childIndexToSwap;
             } else
