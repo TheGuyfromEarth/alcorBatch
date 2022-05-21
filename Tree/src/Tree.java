@@ -60,7 +60,7 @@ public class Tree {
                 }
 
                 if (par == null)
-                    root = par.getLeftChild();
+                    root = node.getLeftChild();
 
                 node.getLeftChild().setParent(par);
                 node = null;
@@ -77,7 +77,7 @@ public class Tree {
                 }
 
                 if (par == null)
-                    root = par.getRightChild();
+                    root = node.getRightChild();
 
                 node.getRightChild().setParent(par);
                 node = null;
