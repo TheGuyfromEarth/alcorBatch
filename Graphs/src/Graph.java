@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Graph {
 
     ArrayList<Integer>[] adj;
+    static int count = 0;
 
     public Graph(int numVertices) {
         adj = new ArrayList[numVertices];
@@ -17,6 +18,28 @@ public class Graph {
 //        sourceList.add(destination);
         adj[source].add(destination);
         adj[destination].add(source);
+    }
+
+    // recursive dfs function
+    private void dfsUtil(int source, boolean[] visited) {
+        visited[source] = true;
+        count++;
+
+        if(count<adj.length)
+            System.out.print(source + "->");
+        else
+            System.out.println(source);
+
+        for (int neighbor : adj[source]) {
+            if (!visited[neighbor])
+                dfsUtil(neighbor, visited);
+        }
+    }
+
+    public void dfs(int source) {
+        boolean[] visited = new boolean[adj.length];
+        visited[source] = true;
+        dfsUtil(source, visited);
     }
 }
 
@@ -37,6 +60,15 @@ class Tester {
             int destination = scan.nextInt();
             graph.connectEdge(source, destination);
         }
+
+        // DFS
+        System.out.println("Please enter source node for DFS: ");
+        int source = scan.nextInt();
+        graph.dfs(source);
+
+        // Check if the path exists between any two nodes or not
+//        System.out.println("Please enter destination node for DFS: ");
+//        int destination = scan.nextInt();
 
     }
 }
