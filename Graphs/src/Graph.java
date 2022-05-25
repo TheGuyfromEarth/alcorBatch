@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Graph {
@@ -25,7 +27,7 @@ public class Graph {
         visited[source] = true;
         count++;
 
-        if(count<adj.length)
+        if (count < adj.length)
             System.out.print(source + "->");
         else
             System.out.println(source);
@@ -41,6 +43,38 @@ public class Graph {
         visited[source] = true;
         dfsUtil(source, visited);
     }
+
+    public void bfs(int source) {
+        boolean[] visited = new boolean[adj.length];
+        int[] level = new int[adj.length];
+
+        visited[source] = true;
+        level[source] = 0;
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(source);
+
+        while (!queue.isEmpty()) {
+            int currElement = queue.poll();
+
+            System.out.println(currElement + "->");
+
+            // printing all nodes at a given distance from source to destination
+//            if(level[currElement] == 2)
+//                System.out.println(currElement);
+
+            for (int neighbour : adj[currElement]) {
+                if (!visited[neighbour]) {
+                    queue.add(neighbour);
+                    visited[neighbour] = true;
+                    level[neighbour] = level[currElement] + 1;
+                }
+            }
+        }
+        // finding shortest distance
+//        System.out.println(level[5]);
+    }
+
 }
 
 class Tester {
@@ -62,12 +96,21 @@ class Tester {
         }
 
         // DFS
-        System.out.println("Please enter source node for DFS: ");
-        int source = scan.nextInt();
-        graph.dfs(source);
+//        System.out.println("Please enter source node for DFS: ");
+//        int source = scan.nextInt();
+//        graph.dfs(source);
 
         // Check if the path exists between any two nodes or not
 //        System.out.println("Please enter destination node for DFS: ");
+//        int destination = scan.nextInt();
+
+        // BFS
+        System.out.println("Please enter source node for BFS: ");
+        int source = scan.nextInt();
+        graph.bfs(source);
+
+        // shortest distance from source for given destination
+//        System.out.println("Please enter destination node for BFS: ");
 //        int destination = scan.nextInt();
 
     }
