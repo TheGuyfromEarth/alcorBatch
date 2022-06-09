@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Graph {
 
@@ -16,8 +13,6 @@ public class Graph {
     }
 
     public void connectEdge(int source, int destination) {
-//        ArrayList<Integer> sourceList = adj[source];
-//        sourceList.add(destination);
         adj[source].add(destination);
         adj[destination].add(source);
     }
@@ -44,7 +39,7 @@ public class Graph {
         dfsUtil(source, visited);
     }
 
-    public void bfs(int source) {
+    public void bfs(int source,HashMap<Integer,String> cityMap) {
         boolean[] visited = new boolean[adj.length];
         int[] level = new int[adj.length];
 
@@ -57,7 +52,7 @@ public class Graph {
         while (!queue.isEmpty()) {
             int currElement = queue.poll();
 
-            System.out.println(currElement + "->");
+            System.out.println(cityMap.get(currElement) + "->");
 
             // printing all nodes at a given distance from source to destination
 //            if(level[currElement] == 2)
@@ -84,14 +79,23 @@ class Tester {
         int numVertices = scan.nextInt();
         Graph graph = new Graph(numVertices);
 
+        HashMap<Integer,String> cityMap = new HashMap<>();
+
+        // To input names of vertices
+        for(int i = 0; i<numVertices;i++){
+            String cityName = scan.next();
+            cityMap.put(i,cityName);
+        }
+
         System.out.println("Enter the number of edges: ");
         int numEdges = scan.nextInt();
 
         System.out.println("Enter source and destination for edge: ");
 
         for (int i = 0; i < numEdges; i++) {
-            int source = scan.nextInt();
-            int destination = scan.nextInt();
+            int source = getKey(scan.next(),cityMap);
+            int destination = getKey(scan.next(),cityMap);
+
             graph.connectEdge(source, destination);
         }
 
@@ -106,13 +110,21 @@ class Tester {
 
         // BFS
         System.out.println("Please enter source node for BFS: ");
-        int source = scan.nextInt();
-        graph.bfs(source);
+        int source = getKey(scan.next(),cityMap);
+        graph.bfs(source,cityMap);
 
         // shortest distance from source for given destination
 //        System.out.println("Please enter destination node for BFS: ");
 //        int destination = scan.nextInt();
 
     }
-}
 
+    private static int getKey(String val, HashMap<Integer,String> map){
+        for(Map.Entry<Integer,String> cityEntrySet : map.entrySet()){
+            if(cityEntrySet.getValue().equals(val))
+                return cityEntrySet.getKey();
+        }
+        return -1;
+    }
+
+}
