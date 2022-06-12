@@ -8,7 +8,6 @@ class MSTGraph {
 
     ArrayList<MSTPair>[] adj;
 
-
     public MSTGraph(int numVertices) {
         adj = new ArrayList[numVertices];
         for (int i = 0; i < adj.length; i++) {
@@ -54,7 +53,8 @@ public class DisjointUnionSet {
         System.out.println("Enter the no of vertices: ");
         int numVertices = scan.nextInt();
 
-
+        parent = new int[numVertices];
+        size = new int[numVertices];
 
         MSTGraph graph = new MSTGraph(numVertices);
 
@@ -73,16 +73,35 @@ public class DisjointUnionSet {
             graph.connectEdge(source, destination, weight);
         }
 
+        System.out.println("Weight of MST is:"+kruskals(graph));
 
     }
 
-    private static void kruskals(MSTGraph graph){
+    private static int kruskals(MSTGraph graph){
 
         for(int i=0;i<graph.adj.length;i++){
             make(i);
         }
         // sort the edgeArray
         Arrays.sort(edgeArray);
+        int totWt = 0;
+
+        for(int i=0;i<edgeArray.length;i++){
+            MSTPair currPair = edgeArray[i];
+            int srcParent = find(currPair.source);
+            int destParent = find(currPair.destination);
+
+            if(srcParent == destParent)
+            // the edge will create a cycle, ignore it
+                continue;
+            else{
+                // edge is a valid edge and it won't create a cycle
+                totWt+=currPair.weight;
+                union(currPair.source,currPair.destination);
+                System.out.println(currPair.source+" -> "+currPair.destination);
+            }
+        }
+        return totWt;
     }
 
     // main method for Disjoint Union Set to find number of connected components
@@ -142,8 +161,6 @@ public class DisjointUnionSet {
                 size[parentB] += size[parentA];
             }
         }
-
-
     }
 }
 
