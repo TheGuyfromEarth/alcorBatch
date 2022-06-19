@@ -1,15 +1,18 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class KnapSack01 {
 
     public static void main(String[] args) {
 
         int[] weights = {2, 5, 3, 1, 6};
-        int[] value = {25, 18, 5, 10, 20};
+        int[] value = {25, 18, 5, 10, 40};
 
         int capacity = 6;
-        System.out.println(maxValue(weights,value,capacity));
+        maxValue(weights, value, capacity);
     }
 
-    private static int maxValue(int[] weights, int[] value, int capacity) {
+    private static void maxValue(int[] weights, int[] value, int capacity) {
 
         int[][] dp = new int[weights.length + 1][capacity + 1];
 
@@ -29,6 +32,32 @@ public class KnapSack01 {
                 }
             }
         }
-        return dp[weights.length][capacity];
+        System.out.println(dp[weights.length][capacity]);
+
+        // print the combination of weights
+
+        Queue<Pair> queue = new LinkedList<>();
+        queue.add(new Pair(dp.length - 1, capacity, ""));
+
+        while (!queue.isEmpty()) {
+
+            Pair currPair = queue.poll();
+
+            if (currPair.row == 0 || currPair.col == 0) {
+                System.out.println(currPair.path);
+            } else {
+                int exclude = dp[currPair.row - 1][currPair.col];
+                if (currPair.col >= weights[currPair.row - 1]) {
+                    int remWt = currPair.col - weights[currPair.row - 1];
+                    int include = value[currPair.row - 1] + dp[currPair.row - 1][remWt];
+
+                    if(include>=exclude)
+                        queue.add(new Pair(currPair.row-1,remWt,currPair.path+weights[currPair.row-1]+" "));
+                }
+
+                if(dp[currPair.row][currPair.col] == exclude)
+                    queue.add(new Pair(currPair.row-1,currPair.col, currPair.path));
+            }
+        }
     }
 }
