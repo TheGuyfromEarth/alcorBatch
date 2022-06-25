@@ -33,7 +33,33 @@ public class Applications {
             System.out.println("Unset");
 
         // Set the ith bit
+        // Ex: num = 10, i = 2
+        // num -> 1010
+
+        int num  = 10;
+        i = 2;
+
+        int mask = 1<<i;
+
+        int ans = num | mask;
+        System.out.println(ans);
+
         // Unset the ith bit
+        // Ex: num = 10, i = 1
+        // num -> 1010
+        num  = 10;
+        i = 1;
+        mask = (~(1<<i));
+
+        ans = num & mask;
+        System.out.println(ans);
+
         // toggle the ith bit
+        // Ex: num = 10, i = 1
+        num  = 10;
+        i = 1;
+        mask = (1<<i);
+        ans = num^mask;
+        System.out.println(ans);
     }
 }

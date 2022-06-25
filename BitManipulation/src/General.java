@@ -64,10 +64,10 @@ Ex: 4 >> 0 => 4
 Ex: 32 >> 3 => 4
 
     32 =>  100000
-       =>   100
+    4  =>   100
 
 
-Unary Not Operator:
+Unary Not Operator (~):
 
 Ex : 12
 
@@ -81,5 +81,22 @@ a) Set -> If the value of bit is 1
 b) Clear or Unset -> If the value of bit is 0
 c) LSB -> Least Significant Bit -> 0th bit
 d) MSB -> Most Significant Bit -> 1st bit from the left
+
+
+// Properties of XOR
+a) num^num = 0
+b) num^0 = num
+
+
+// 2's Complement
+a) Invert the bits
+b) add 1
+
+// 1. No of bits required to completely represent any number, n (Binary System) = log(n) + 1      (base 2)
+// 2. No of digits required to completely represent any number, n (Decimal System) = log(n) + 1      (base 10)
+
+// Brian Kernighan's Algo
+-> n & (n-1)
+
 
  */
