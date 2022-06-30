@@ -5,6 +5,8 @@ public class Node {
 
     private Map<Character, Node> children;
     private boolean isEndofWord;
+    // for maxFreq problem
+    private int count;
 
     public Node() {
         this.children = new HashMap<>();
@@ -25,5 +27,13 @@ public class Node {
 
     public void setEndofWord(boolean endofWord) {
         isEndofWord = endofWord;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
